@@ -1,4 +1,4 @@
-package top.idoknow.ghost.console;
+package top.idoknow.ghost.console_old;
 
 import com.alibaba.fastjson.JSONObject;
 import top.idoknow.ghost.util.FileRW;

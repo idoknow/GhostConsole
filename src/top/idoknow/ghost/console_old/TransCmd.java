@@ -1,4 +1,4 @@
-package top.idoknow.ghost.console;
+package top.idoknow.ghost.console_old;
 
 import com.rft.core.server.BufferedFileReceiver;
 import top.idoknow.ghost.util.FileRW;

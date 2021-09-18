@@ -1,8 +1,8 @@
 package top.idoknow.ghost.util;
 
-import top.idoknow.ghost.console.AcceptMaster;
-import top.idoknow.ghost.console.HandleMaster;
-import top.idoknow.ghost.console.ConsoleMain;
+import top.idoknow.ghost.console_old.AcceptMaster;
+import top.idoknow.ghost.console_old.HandleMaster;
+import top.idoknow.ghost.console_old.ConsoleMain;
 
 import java.io.File;
 import java.util.Date;
