@@ -27,8 +27,8 @@ public class CommandPw extends AbstractCommand {
 
             TerminalAcceptor.sendTerminalList();
         }else {
-            ((TerminalHandler)handler).getWrapper().wrapTimeLn("!passErr!");
-            ((TerminalHandler)handler).getWrapper().wrapTimeLn("Auth failed for root token:"+params[1]).flush();
+            ((TerminalHandler)handler).getWrapper().wrapTimeLn("Auth failed for root token:"+params[1]);
+            ((TerminalHandler)handler).getWrapper().append("!passErr!").flush();
             handler.dispose();
         }
     }

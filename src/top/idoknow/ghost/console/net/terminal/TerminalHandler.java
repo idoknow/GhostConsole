@@ -126,7 +126,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
         }
         //reading loop
         try {
-            int data=0;
+            int data;
             while (true){
                 //Read single line of the data
                 StringBuilder line=new StringBuilder();
@@ -151,9 +151,8 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
                 }
             }
         }catch (IOException readAndProcessMsg){
-            readAndProcessMsg.printStackTrace();
-            LogMgr.log(LogMgr.ERROR,this.subject,"Read","Failed to read from peer.\n"
-                    + ConsoleMain.getErrorInfo(readAndProcessMsg));
+//            readAndProcessMsg.printStackTrace();
+            LogMgr.log(LogMgr.ERROR,this.subject,"Read","Terminal disconnected.");
             dispose();
         }
     }

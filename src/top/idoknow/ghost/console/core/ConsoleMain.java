@@ -5,6 +5,7 @@ import top.idoknow.ghost.console.adapter.jrer.JRERAdapter;
 import top.idoknow.ghost.console.adapter.rft.RFTAdapter;
 import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.at.TimedTaskMgr;
+import top.idoknow.ghost.console.authorize.TerminalAccountMgr;
 import top.idoknow.ghost.console.ioutil.FileIO;
 import top.idoknow.ghost.console.ioutil.LogMgr;
 import top.idoknow.ghost.console.ioutil.SpaceCleaner;
@@ -107,6 +108,21 @@ public class ConsoleMain{
     public static final String LOGIN_TAG="l",ALIVE_TAG="a";
 
     public static void main(String[] args)throws Exception {
+        //Check commands
+
+        if (args.length>=1){
+            if (args[0].equals("register")){
+                if (args.length<3){
+                    LogMgr.log(LogMgr.ERROR,bootingSub,"Account","Syntax:register <name> <password>");
+                    stopConsole(-1);
+                }
+                TerminalAccountMgr.register(args[1],args[2]);
+                LogMgr.logMessage(bootingSub,"Account","Registered:"+args[1]+" "+args[2]);
+                stopConsole(0);
+            }
+        }
+
+
         //Enable log auto flushing
         LogMgr.scheduleAutoFlushTask(Long.parseLong(cfg.getString("log-flush-time")));
 
@@ -141,6 +157,14 @@ public class ConsoleMain{
             }
         }else {
             LogMgr.logMessage(bootingSub,"Boot","Auto space clean task is unable.");
+        }
+
+
+        if (TerminalAccountMgr.isMultiAccountEnable()){
+            TerminalAccountMgr.loadFromFile();
+            LogMgr.logMessage(bootingSub,"Boot","Load accounts from file("+TerminalAccountMgr.countAccounts()+").");
+        }else {
+            LogMgr.logMessage(bootingSub,"Boot","Multi-account is unable.");
         }
     }
 

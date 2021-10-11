@@ -48,7 +48,8 @@ public class FileIO {
     public static void write(String filePath,String content,Charset charset,boolean append)throws Exception{
         File file=new File(filePath);
         if (!file.exists()){
-            file.getParentFile().mkdirs();
+            if (file.getParentFile()!=null)
+                file.getParentFile().mkdirs();
             file.createNewFile();
         }
         if (!append) {
