@@ -17,7 +17,8 @@ public class CommandInfo extends AbstractCommand {
         ((SlaveHandler)handler).updateLaunchTime(Long.parseLong(params[3]));
         ((SlaveHandler)handler).updateInstallTime(params.length>4?Long.parseLong(params[4]):0);
         SlaveAcceptor.sendSlaveList();
-        //TODO save online clients list
+        //save online clients list
+        SlaveAcceptor.saveOnlineSlaves();
 
         //TODO check rename task
         TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split(" #")[0], ConsoleMain.LOGIN_TAG);

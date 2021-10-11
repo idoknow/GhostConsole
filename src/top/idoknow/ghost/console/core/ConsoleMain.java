@@ -50,7 +50,9 @@ public class ConsoleMain{
             "screen-sniffer-file-check-day=\n" +
             "screen-sniffer-file-timeout-day=28\n" +
             "enable-green-jre-management=false\n" +
-            "debug-mode=false\n";
+            "debug-mode=false\n" +
+            "enable-multi-account=true\n" +
+            "";
 
     //create properties file if not exist
     static {

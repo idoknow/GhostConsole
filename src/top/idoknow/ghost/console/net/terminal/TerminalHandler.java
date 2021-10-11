@@ -4,6 +4,7 @@ import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.LogMgr;
 import top.idoknow.ghost.console.net.protocol.*;
+import top.idoknow.ghost.console.net.slave.SlaveAcceptor;
 import top.idoknow.ghost.console.net.slave.SlaveHandler;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.Debug;
@@ -31,6 +32,15 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
         //TODO things after terminal authed
         TagLogAdapter.getTagLog().addTag("$"+getSubject().getToken().split(" #")[0], ConsoleMain.LOGIN_TAG);
         TagLogAdapter.getTagLog().addTag("$"+getSubject().getToken().split(" #")[0], ConsoleMain.ALIVE_TAG);
+
+        TerminalAcceptor.sendTerminalList();
+
+        SlaveAcceptor.sendSlaveList();
+
+        if (!ConsoleMain.cfg.getString("welcome-message").equals("")){
+            getWrapper().wrapTimeLn("[Welcome] "+ConsoleMain.cfg.getString("welcome-message")).flush();
+        }
+
     }
     public long getAuthTime(){
         return authTime;
@@ -163,9 +173,14 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
      */
     private void terminalMessage(String data){
         if (this.getSubject().getIdentity()==Subject.UNDEFINED){
+            this.getWrapper().append("!relogin!").flush();
             this.dispose();
         }
-        Debug.debug("send to peer");
+        if (getFocusedSlave()==null){
+            getWrapper().wrapTimeLn("No slave focused by this session.").flush();
+            return;
+        }
+//        Debug.debug("send to peer");
         tellPeer(data+"\n");
     }
 

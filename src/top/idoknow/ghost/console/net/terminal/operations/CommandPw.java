@@ -21,11 +21,10 @@ public class CommandPw extends AbstractCommand {
 
         if (ConsoleMain.cfg.getString("root-token").equals(params[1])){
             handler.updateSubject(new Subject("root",Subject.TERMINAL));
-            ((TerminalHandler)handler).authSuccessfully();
             LogMgr.log(LogMgr.INFO,handler.getSubject(),"AuthRoot","Successfully auth root from ip:"+handler.getSocket().getInetAddress());
             ((TerminalHandler)handler).getWrapper().wrapTimeLn("Successfully auth root from ip:"+handler.getSocket().getInetAddress()).flush();
 
-            TerminalAcceptor.sendTerminalList();
+            ((TerminalHandler)handler).authSuccessfully();
         }else {
             ((TerminalHandler)handler).getWrapper().wrapTimeLn("Auth failed for root token:"+params[1]);
             ((TerminalHandler)handler).getWrapper().append("!passErr!").flush();

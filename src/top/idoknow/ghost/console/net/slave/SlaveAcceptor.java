@@ -1,7 +1,7 @@
 package top.idoknow.ghost.console.net.slave;
 
-import com.rft.core.util.FileRW;
 import top.idoknow.ghost.console.core.ConsoleMain;
+import top.idoknow.ghost.console.ioutil.FileIO;
 import top.idoknow.ghost.console.ioutil.LogMgr;
 import top.idoknow.ghost.console.net.terminal.TerminalAcceptor;
 import top.idoknow.ghost.console.net.terminal.TerminalHandler;
@@ -130,7 +130,7 @@ public class SlaveAcceptor extends Thread{
         return banList;
     }
 
-    public static void loadBanList(){
+    public static void loadBanList()throws Exception{
         banList.clear();
 
         if (!Boolean.parseBoolean(ConsoleMain.cfg.getString("enable-slave-ban"))){
@@ -139,7 +139,7 @@ public class SlaveAcceptor extends Thread{
 
 
         if(new File("banIps.txt").exists()){
-            String[] listStr = FileRW.read("banIps.txt").split(";");
+            String[] listStr = FileIO.read("banIps.txt").split(";");
             banList.addAll(Arrays.asList(listStr));
         }
     }
@@ -160,5 +160,27 @@ public class SlaveAcceptor extends Thread{
             }
         }
         return false;
+    }
+
+
+    public static void saveOnlineSlaves(){
+
+        if (ConsoleMain.cfg.getString("save-online-slave-list-to").equals("")){
+            return;
+        }
+        StringBuilder allOnlineClientList=new StringBuilder();
+        synchronized (slaveHandlersSync) {
+            for (SlaveHandler slaveHandler : slaveHandlers) {
+                //写列表到文件以便rescueServer检测未启动客户端的机器
+                if (slaveHandler.getSubject().getIdentity()==Subject.SLAVE) {
+                    allOnlineClientList.append(slaveHandler.getSubject().getToken().split(" #")[0]).append(" ");
+                }
+            }
+        }
+        try {
+            FileIO.write(ConsoleMain.cfg.getString("save-online-slave-list-to"),allOnlineClientList.toString());
+        }catch (Exception e){
+            LogMgr.log(LogMgr.ERROR,slaveAcceptorSub,"SaveList","Failed to save slave list:"+ConsoleMain.getErrorInfo(e));
+        }
     }
 }

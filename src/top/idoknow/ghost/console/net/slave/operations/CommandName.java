@@ -16,7 +16,7 @@ public class CommandName extends AbstractCommand {
         SlaveAcceptor.sendSlaveList();
         TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split(" #")[0], ConsoleMain.LOGIN_TAG);
         TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split(" #")[0], ConsoleMain.ALIVE_TAG);
-        //TODO save online clients list
-
+        //save online clients list
+        SlaveAcceptor.saveOnlineSlaves();
     }
 }
