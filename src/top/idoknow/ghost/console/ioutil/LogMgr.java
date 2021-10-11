@@ -71,7 +71,7 @@ public class LogMgr {
                     break;
             }
 
-            return TimeUtil.nowMMDDHHmmSS()+" "+typeText+" ["+source.getText()+"|"+title+"] "+content;
+            return TimeUtil.nowFormattedMMDDHHmmSS()+" "+typeText+" ["+source.getText()+"|"+title+"] "+content;
         }
     }
 

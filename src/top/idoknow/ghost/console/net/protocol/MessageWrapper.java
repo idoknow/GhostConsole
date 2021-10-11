@@ -40,7 +40,7 @@ public class MessageWrapper {
     }
 
     public MessageWrapper wrapTime(String msg){
-        append(TimeUtil.nowMMDDHHmmSS()).append(" | ").append(msg);
+        append(TimeUtil.nowFormattedMMDDHHmmSS()).append(" | ").append(msg);
         return this;
     }
     public MessageWrapper wrapTimeLn(String msg){
