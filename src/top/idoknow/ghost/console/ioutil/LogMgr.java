@@ -115,6 +115,9 @@ public class LogMgr {
             System.out.println(log.getText());
             logBuffer.add(log);
             //check buffer current size
+            if (ConsoleMain.cfg==null){
+                return log;
+            }
             if (logBuffer.size()>=Integer.parseInt(ConsoleMain.cfg.getString("log-buffer-size"))){
                 flush(ConsoleMain.cfg.getString("log-file"));
             }

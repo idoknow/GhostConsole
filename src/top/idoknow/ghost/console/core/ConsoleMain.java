@@ -64,7 +64,7 @@ public class ConsoleMain{
                 try {
                     FileIO.write("console.properties"
                             ,notice+"" +
-                                    "#Edit time:"+ TimeUtil.nowMMDDHHmmSS()+"\n" +
+                                    "#Create time:"+ TimeUtil.nowMMDDHHmmSS()+"\n" +
                                     defProperties);
                     LogMgr.logMessage(bootingSub,"Properties","Properties file created,please edit it and restart software.");
                     stopConsole(0);
@@ -151,7 +151,7 @@ public class ConsoleMain{
         if (!"".equalsIgnoreCase(cfg.getString("screen-sniffer-file-check-day"))){
             try {
                 int day=Integer.parseInt(cfg.getString("screen-sniffer-file-check-day"));
-                spaceCleanTimer.schedule(spaceCleaner,10000, 1000L *60*60*24*day);
+                spaceCleanTimer.schedule(spaceCleaner,10000, 1000L*60*60*24*day);
                 LogMgr.logMessage(bootingSub,"Boot","Scheduled space clean task for period:"+day+"d.");
             }catch (Exception e){
                 LogMgr.log(LogMgr.CRASH,bootingSub,"Boot","Cannot load \"screen-sniffer-file-check-day\" from properties:"+getErrorInfo(e));

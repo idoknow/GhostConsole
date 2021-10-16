@@ -29,7 +29,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     private long authTime=0;
     public void authSuccessfully(){
         authTime=new Date().getTime();
-        //TODO things after terminal authed
+        //things after terminal authed
         TagLogAdapter.getTagLog().addTag("$"+getSubject().getToken().split(" #")[0], ConsoleMain.LOGIN_TAG);
         TagLogAdapter.getTagLog().addTag("$"+getSubject().getToken().split(" #")[0], ConsoleMain.ALIVE_TAG);
 

@@ -17,10 +17,13 @@ public class TerminalAccountMgr {
         return Boolean.parseBoolean(ConsoleMain.cfg.getString("enable-multi-account"));
     }
 
-    private static HashMap<String,String> accountMap=new HashMap<>();//name:password
+    private static final HashMap<String,String> accountMap=new HashMap<>();//name:password
+    private static final Boolean accountMapSync=false;
 
     public static int countAccounts(){
-        return accountMap.size();
+        synchronized (accountMapSync) {
+            return accountMap.size();
+        }
     }
 
     public static void loadFromFile()throws Exception{
@@ -32,18 +35,22 @@ public class TerminalAccountMgr {
         }
 
         String[] accounts=FileIO.read("accounts.list").split(";");
-        for (String account:accounts){
-            String[] acc=account.split(" ");
-            if (acc.length<2){
-                throw new AccountOperationException("account field invalid:"+account);
+        synchronized (accountMapSync) {
+            for (String account : accounts) {
+                String[] acc = account.split(" ");
+                if (acc.length < 2) {
+                    throw new AccountOperationException("account field invalid:" + account);
+                }
+                accountMap.put(acc[0], acc[1]);
             }
-            accountMap.put(acc[0],acc[1]);
         }
     }
     public static void syncToFile()throws Exception{
         StringBuilder file=new StringBuilder();
-        for (String name:accountMap.keySet()){
-            file.append(name).append(" ").append(accountMap.get(name)).append(";");
+        synchronized (accountMapSync) {
+            for (String name : accountMap.keySet()) {
+                file.append(name).append(" ").append(accountMap.get(name)).append(";");
+            }
         }
         FileIO.write("accounts.list",file.toString());
     }
@@ -53,7 +60,9 @@ public class TerminalAccountMgr {
             throw new AccountOperationException("cannot to register \"root\".");
         }
         String mask= MD5Util.stringToMD5(password);
-        accountMap.put(name,mask);
+        synchronized (accountMapSync) {
+            accountMap.put(name, mask);
+        }
         syncToFile();
     }
 
@@ -68,13 +77,26 @@ public class TerminalAccountMgr {
             if(!isMultiAccountEnable()){
                 throw new AccountOperationException("multi-account is unable.");
             }
-            if (!accountMap.containsKey(name)){
-                throw new AccountOperationException("no such account:"+name);
+            synchronized (accountMapSync) {
+                if (!accountMap.containsKey(name)) {
+                    throw new AccountOperationException("no such account:" + name);
+                }
+                if (accountMap.get(name).equals(MD5Util.stringToMD5(password))) {
+                    return true;
+                } else {
+                    throw new AccountOperationException("auth failed.");
+                }
             }
-            if (accountMap.get(name).equals(MD5Util.stringToMD5(password))){
+        }
+    }
+    public static boolean updatePassword(String name,String passwordPlainText) throws Exception {
+        synchronized (accountMapSync) {
+            if (accountMap.containsKey(name)) {
+                accountMap.put(name, MD5Util.stringToMD5(passwordPlainText));
+                syncToFile();
                 return true;
-            }else {
-                throw new AccountOperationException("auth failed.");
+            } else {
+                return false;
             }
         }
     }
