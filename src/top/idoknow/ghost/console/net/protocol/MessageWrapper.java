@@ -1,7 +1,8 @@
 package top.idoknow.ghost.console.net.protocol;
 
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.subject.Subject;
+import top.idoknow.ghost.console.util.Debug;
 import top.idoknow.ghost.console.util.TimeUtil;
 
 /**
@@ -47,10 +48,13 @@ public class MessageWrapper {
         return wrapTime(msg+"\n");
     }
 
-    public void flush(){
+    public synchronized void flush(){
+//        Debug.debug("Flushing messages......");
         if (dataProxy!=null) {
             dataProxy.appendMsg(buffer.toString());
-            dataProxy.flushMsg();
+//            Debug.debug("#### pendingsize:"+dataProxy.pendingSize);
+//            dataProxy.flushMsg();
+//            Debug.debug("#### 2222222222pendingSize:"+dataProxy.pendingSize);
         }else if (subject!=null){
             LogMgr.logMessage(subject,"Wrapper","Log by wrapper with subject:\n"+buffer.toString().replaceAll("\n","\n        "));
         }

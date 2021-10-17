@@ -1,7 +1,7 @@
 package top.idoknow.ghost.console.net.terminal;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.TimeUtil;
 
@@ -81,7 +81,7 @@ public class TerminalAcceptor extends Thread{
         synchronized (terminalHandlersSync){
             for (TerminalHandler handler:terminalHandlers){
                 handler.getDataProxy().appendMsg(data);
-                handler.getDataProxy().flushMsg();
+//                handler.getDataProxy().flushMsg();
             }
         }
     }
@@ -91,7 +91,7 @@ public class TerminalAcceptor extends Thread{
             for (TerminalHandler handler : terminalHandlers) {
                 if(handler.getAttributes().contains(containedAttri)){
                     handler.getDataProxy().appendMsg(data);
-                    handler.getDataProxy().flushMsg();
+//                    handler.getDataProxy().flushMsg();
                 }
             }
         }

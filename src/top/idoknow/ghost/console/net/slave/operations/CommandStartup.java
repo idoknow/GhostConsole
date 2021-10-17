@@ -10,7 +10,7 @@ public class CommandStartup extends AbstractCommand {
     public void process(String[] params, AbstractHandler handler, String rawData) {
         if (!ConsoleMain.cfg.getString("slave-startup").equals("")){
             handler.getDataProxy().appendMsg(ConsoleMain.cfg.getString("slave-startup")+"\n");
-            handler.getDataProxy().flushMsg();
+//            handler.getDataProxy().flushMsg();
         }
     }
 }

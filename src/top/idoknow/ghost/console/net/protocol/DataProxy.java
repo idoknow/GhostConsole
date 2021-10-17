@@ -1,7 +1,8 @@
 package top.idoknow.ghost.console.net.protocol;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
+import top.idoknow.ghost.console.util.Debug;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -23,8 +24,7 @@ public class DataProxy {
      * Store pending msgs waiting to be sent.
      */
     private final ArrayList<byte[]> pendingMsg=new ArrayList<>();
-    //Sync pending msg on this field
-    private final Boolean pendingMsgSync=false;
+    public int pendingSize=0;
 
 
     private final Boolean waitFromMsgToSend=false;
@@ -33,32 +33,17 @@ public class DataProxy {
         try {
             while (true){//check size of pending msg arraylist in a while loop.
                 //lock pending msg array list
-                synchronized (pendingMsgSync){
-                    if (pendingMsg.size()>0){//check size
-                        //start a loop which is for sending pending msg one by one.
-                        while (pendingMsg.size()>0){
-                            try {
-                                byte[] msg=pendingMsg.remove(0);
-                                outputStream.write(msg);
-                                outputStream.flush();
-                            }catch (IOException failedToSend){
-                                //catch the exception of sending msg
-                                //output a log of failure of sending msg
-                                //then throw this exception to next catcher to dispose current conn
-                                LogMgr.log(LogMgr.ERROR,handler.getSubject(),"SendMsg","Failed to send msg to peer.");
-                                throw failedToSend;
-                            }
-                        }
+                synchronized (pendingMsg){
+                    if (pendingMsg.size()>0) {
+                        outputStream.write(pendingMsg.remove(0));
+                        outputStream.flush();
+                    }else {
+                        pendingMsg.wait();
                     }
-                }
-                //already sent all pending msg and clear arraylist
-                //wait for next msg
-                synchronized (waitFromMsgToSend){
-                    waitFromMsgToSend.wait();
                 }
             }
         }catch (Exception msgSenderThreadDown){
-            msgSenderThreadDown.printStackTrace();
+//            msgSenderThreadDown.printStackTrace();
             LogMgr.log(LogMgr.ERROR,handler.getSubject(),"MsgSender","Msg sender is now down:\n"
                     + ConsoleMain.getErrorInfo(msgSenderThreadDown));
             handler.dispose();
@@ -80,28 +65,24 @@ public class DataProxy {
     }
 
 
-    public void flushMsg(){
-        synchronized (waitFromMsgToSend){
-            waitFromMsgToSend.notify();
-        }
-    }
-
     /**
      * Clear array list of pending messages without sending them.
      */
     public void clearPendingMsg(){
-        synchronized (pendingMsgSync) {
+        synchronized (pendingMsg) {
             pendingMsg.clear();
         }
     }
 
     /**
-     * Caution:Please call flushMsg(); explicitly.
      * @param bytes data provided in byte[] type.
      */
     public void appendMsg(byte[] bytes){
-        synchronized (pendingMsgSync) {
+        synchronized (pendingMsg) {
             pendingMsg.add(bytes);
+            pendingSize++;
+            pendingMsg.notify();
+//            Debug.debug("###########appending message#######:"+new String(bytes)+"$$$$$$$$$$$$size:"+pendingSize);
         }
     }
 

@@ -2,7 +2,7 @@ package top.idoknow.ghost.console.net.terminal;
 
 import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.net.protocol.*;
 import top.idoknow.ghost.console.net.slave.SlaveAcceptor;
 import top.idoknow.ghost.console.net.slave.SlaveHandler;
@@ -14,7 +14,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 public class TerminalHandler extends AbstractHandler implements IHasWrapper {
@@ -99,7 +98,6 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     public boolean tellPeer(String data){
         if (focusedSlave!=null){
             focusedSlave.getDataProxy().appendMsg(data);
-            focusedSlave.getDataProxy().flushMsg();
             return true;
         }
         return false;
@@ -153,7 +151,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
                 }catch (AbstractProcessor.CommandNotFoundException e){
                     terminalMessage(line.toString());
                 }catch (Exception runningACommand){
-                    runningACommand.printStackTrace();
+//                    runningACommand.printStackTrace();
                     LogMgr.log(LogMgr.ERROR,this.subject,"Process","Error occurred while processing data from terminal.\n"
                             +ConsoleMain.getErrorInfo(runningACommand));
                     getWrapper().wrapTimeLn("Failed to exec:"+line);
@@ -215,8 +213,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
         receiveAliveResp=false;
 
         new Thread(()->{
-            getDataProxy().appendMsg("!alivem!\n");
-            getDataProxy().flushMsg();
+            getDataProxy().appendMsg("!alivem!");
         }).start();
 
         try {

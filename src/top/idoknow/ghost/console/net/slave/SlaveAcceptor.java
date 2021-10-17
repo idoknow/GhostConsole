@@ -2,10 +2,10 @@ package top.idoknow.ghost.console.net.slave;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.FileIO;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.net.terminal.TerminalAcceptor;
-import top.idoknow.ghost.console.net.terminal.TerminalHandler;
 import top.idoknow.ghost.console.subject.Subject;
+import top.idoknow.ghost.console.util.Debug;
 
 import java.io.File;
 import java.net.ServerSocket;
@@ -74,6 +74,7 @@ public class SlaveAcceptor extends Thread{
      * Slave will be labelled "focused" if it focused by any terminal.
      */
     public static void sendSlaveList(){
+        Debug.debug("sending slave list;");
         StringBuilder msg=new StringBuilder("!clients");
         for(SlaveHandler handler:slaveHandlers){
             if (handler.getSubject().getIdentity()!=Subject.UNDEFINED) {

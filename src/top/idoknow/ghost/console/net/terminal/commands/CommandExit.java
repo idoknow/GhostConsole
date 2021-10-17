@@ -82,7 +82,7 @@ public class CommandExit extends AbstractCommand {
         }
         for (SlaveHandler slaveHandler:kill){
             slaveHandler.getDataProxy().appendMsg("!!exit "+slaveHandler.getSubject().getToken().split(" #")[0]);
-            slaveHandler.getDataProxy().flushMsg();
+//            slaveHandler.getDataProxy().flushMsg();
             slaveHandler.dispose();
         }
         ((IHasWrapper)handler).getWrapper().wrapTimeLn("Executing kill slaves count:"+kill.size()).flush();

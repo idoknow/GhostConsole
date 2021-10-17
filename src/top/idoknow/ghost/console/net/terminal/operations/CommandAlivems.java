@@ -9,7 +9,7 @@ public class CommandAlivems extends AbstractCommand {
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) {
         handler.getDataProxy().appendMsg("!alivems!\n");
-        handler.getDataProxy().flushMsg();
+//        handler.getDataProxy().flushMsg();
 
     }
 }

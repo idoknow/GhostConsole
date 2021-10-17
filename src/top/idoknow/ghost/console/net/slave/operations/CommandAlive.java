@@ -11,6 +11,6 @@ public class CommandAlive extends AbstractCommand {
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) {
         handler.getDataProxy().appendMsg("#alive#\n");
-        handler.getDataProxy().flushMsg();
+//        handler.getDataProxy().flushMsg();
     }
 }

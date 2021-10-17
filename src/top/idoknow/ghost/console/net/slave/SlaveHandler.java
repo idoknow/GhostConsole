@@ -1,12 +1,13 @@
 package top.idoknow.ghost.console.net.slave;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.net.protocol.AbstractHandler;
 import top.idoknow.ghost.console.net.protocol.AbstractProcessor;
 import top.idoknow.ghost.console.net.protocol.DataProxy;
 import top.idoknow.ghost.console.net.terminal.TerminalHandler;
 import top.idoknow.ghost.console.subject.Subject;
+import top.idoknow.ghost.console.util.Debug;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -99,7 +100,6 @@ public class SlaveHandler extends AbstractHandler {
     public boolean tellPeer(String data){
         if (peerTerminal!=null){
             peerTerminal.getDataProxy().appendMsg(data);
-            peerTerminal.getDataProxy().flushMsg();
             return true;
         }
         return false;
@@ -143,7 +143,7 @@ public class SlaveHandler extends AbstractHandler {
                     }
                     //read whole command data
                     try {
-                        this.getProcessor().run(cmd.substring(cmd.length()-1));
+                        this.getProcessor().run(cmd.toString().replaceAll(""+(char)13,"").substring(0,cmd.length()-1));
                     }catch (AbstractProcessor.CommandNotFoundException e){
                         //name not found,transfer to next step
                         slaveMessage(cmd.toString());
@@ -212,8 +212,7 @@ public class SlaveHandler extends AbstractHandler {
         receiveAliveResp=false;
 
         new Thread(()-> {
-            getDataProxy().appendMsg("#alives#\n");
-            getDataProxy().flushMsg();
+            getDataProxy().appendMsg("#alives#");
         }).start();
 
         try {

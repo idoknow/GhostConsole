@@ -26,8 +26,8 @@ public class CommandLsmst extends AbstractCommand {
                         +"|"+(handler1.getAttributes().contains("desktop")?1:0));
             }
             result.append("!");
-            handler.getDataProxy().appendMsg(result +"\n");
-            handler.getDataProxy().flushMsg();
+            handler.getDataProxy().appendMsg(result +"");
+//            handler.getDataProxy().flushMsg();
         }
     }
 }
