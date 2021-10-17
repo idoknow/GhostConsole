@@ -15,6 +15,6 @@ public class CommandAlives extends AbstractCommand {
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) {
         ((SlaveHandler)handler).receiveResp();
-        TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split(" #")[0], ConsoleMain.ALIVE_TAG);
+        TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split("-#")[0], ConsoleMain.ALIVE_TAG);
     }
 }

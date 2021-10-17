@@ -32,10 +32,10 @@ public class CommandChname extends AbstractCommand {
         }
         targetSlave.getDataProxy().appendMsg("!!name "+params[2]+"\n");
         targetSlave.getDataProxy().appendMsg("!!cfg write\n");
-        targetSlave.updateSubject(new Subject(params[2]+" #"+targetSlave.getSID(),Subject.SLAVE));
+        targetSlave.updateSubject(new Subject(params[2]+"-#"+targetSlave.getSID(),Subject.SLAVE));
 
-        TagLogAdapter.getTagLog().addTag(targetSlave.getSubject().getToken().split(" #")[0], ConsoleMain.LOGIN_TAG);
-        TagLogAdapter.getTagLog().addTag(targetSlave.getSubject().getToken().split(" #")[0], ConsoleMain.ALIVE_TAG);
+        TagLogAdapter.getTagLog().addTag(targetSlave.getSubject().getToken().split("-#")[0], ConsoleMain.LOGIN_TAG);
+        TagLogAdapter.getTagLog().addTag(targetSlave.getSubject().getToken().split("-#")[0], ConsoleMain.ALIVE_TAG);
 
         ((IHasWrapper)handler).getWrapper().wrapTimeLn("Slave name changed.").flush();
         SlaveAcceptor.sendSlaveList();
