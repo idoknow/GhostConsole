@@ -7,10 +7,10 @@ import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.at.TimedTaskMgr;
 import top.idoknow.ghost.console.authorize.TerminalAccountMgr;
 import top.idoknow.ghost.console.ioutil.FileIO;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.ioutil.SpaceCleaner;
+import top.idoknow.ghost.console.ioutil.log.LogMySQL;
 import top.idoknow.ghost.console.net.slave.SlaveAcceptor;
-import top.idoknow.ghost.console.net.slave.SlaveHandler;
 import top.idoknow.ghost.console.net.terminal.TerminalAcceptor;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.TimeUtil;
@@ -35,7 +35,7 @@ public class ConsoleMain{
             "#do not use this software in illegal ways.\n";
     //Write this default properties content to file if not exist.
     private static final String defProperties="" +
-            "welcome-message=Hello the Ghost Platform.\n" +
+            "" +
             "slave-port=1033\n" +
             "terminal-port=1034\n" +
             "rft-server-port=1035\n" +
@@ -52,7 +52,11 @@ public class ConsoleMain{
             "enable-green-jre-management=false\n" +
             "debug-mode=false\n" +
             "enable-multi-account=true\n" +
-            "";
+            "save-online-slave-list-to=\n" +
+            "log-to-mysql-address=\n" +
+            "mysql-user=\n" +
+            "mysql-password=\n" +
+            "mysql-database=\n";
 
     //create properties file if not exist
     static {
@@ -164,10 +168,23 @@ public class ConsoleMain{
 
         if (TerminalAccountMgr.isMultiAccountEnable()){
             TerminalAccountMgr.loadFromFile();
-            LogMgr.logMessage(bootingSub,"Boot","Load accounts from file("+TerminalAccountMgr.countAccounts()+").");
+            LogMgr.logMessage(bootingSub,"Boot","Loaded accounts from file("+TerminalAccountMgr.countAccounts()+").");
         }else {
             LogMgr.logMessage(bootingSub,"Boot","Multi-account is unable.");
         }
+
+        if (LogMySQL.isEnable()){
+            try {
+                LogMySQL.init();
+                LogMgr.logMessage(bootingSub, "Boot", "Connected to MySQL database:" + cfg.getString("log-to-mysql-address"));
+            }catch (Exception e){
+                e.printStackTrace();
+                stopConsole(-1);
+            }
+        }else {
+            LogMgr.logMessage(bootingSub,"Boot","Log-to-MySQL is unable.");
+        }
+
     }
 
     public static void initSlaveAcceptor(){

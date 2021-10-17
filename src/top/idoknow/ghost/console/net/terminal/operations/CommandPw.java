@@ -1,10 +1,9 @@
 package top.idoknow.ghost.console.net.terminal.operations;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.net.protocol.AbstractCommand;
 import top.idoknow.ghost.console.net.protocol.AbstractHandler;
-import top.idoknow.ghost.console.net.terminal.TerminalAcceptor;
 import top.idoknow.ghost.console.net.terminal.TerminalHandler;
 import top.idoknow.ghost.console.subject.Subject;
 

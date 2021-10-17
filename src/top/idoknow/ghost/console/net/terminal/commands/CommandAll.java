@@ -8,7 +8,7 @@ import top.idoknow.ghost.console.subject.Subject;
 /**
  * Send message to all slaves.
  * This command is supposed to be expired,
- * but I have not found a elegant way to impl such function to replace "!all" yet.
+ * but I have not found an elegant way to impl such function to replace "!all" yet.
  * @author Rock Chin
  */
 public class CommandAll extends AbstractCommand {

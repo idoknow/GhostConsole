@@ -1,7 +1,7 @@
 package top.idoknow.ghost.console.net.terminal.commands;
 
 import top.idoknow.ghost.console.authorize.TerminalAccountMgr;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.net.protocol.AbstractCommand;
 import top.idoknow.ghost.console.net.protocol.AbstractHandler;
 import top.idoknow.ghost.console.net.protocol.IHasWrapper;

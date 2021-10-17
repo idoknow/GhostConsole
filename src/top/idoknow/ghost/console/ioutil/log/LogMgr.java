@@ -1,9 +1,11 @@
-package top.idoknow.ghost.console.ioutil;
+package top.idoknow.ghost.console.ioutil.log;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
+import top.idoknow.ghost.console.ioutil.FileIO;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.TimeUtil;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,6 +25,7 @@ public class LogMgr {
         String title;
         String content;
         Subject source;
+        String time;
 
         /**
          * Initialize a log message as default type with provided subject and content.
@@ -34,6 +37,7 @@ public class LogMgr {
             this.title=title;
             this.content=content;
             this.source=source;
+            this.time=TimeUtil.nowFormattedMMDDHHmmSS();
         }
 
         /**
@@ -48,10 +52,16 @@ public class LogMgr {
             this.content = content;
             this.source = source;
             this.type = type;
+            this.time=TimeUtil.nowFormattedMMDDHHmmSS();
         }
 
 
         public String getText(){
+
+            return time+" "+getTypeText(type)+" ["+source.getText()+"|"+title+"] "+content;
+        }
+        public static String getTypeText(int type){
+
             String typeText="";
             switch (type){
                 case DEBUG:
@@ -70,8 +80,7 @@ public class LogMgr {
                     typeText="crash";
                     break;
             }
-
-            return TimeUtil.nowFormattedMMDDHHmmSS()+" "+typeText+" ["+source.getText()+"|"+title+"] "+content;
+            return typeText;
         }
     }
 
@@ -82,6 +91,12 @@ public class LogMgr {
     }
     //Sync logBuffer on this field.
     private static final Boolean logBufferSync=false;
+
+    private static final ArrayList<Log> dbBuffer=new ArrayList<>();
+    public static int getDBBufferCurrentSize(){
+        return dbBuffer.size();
+    }
+    private static final Boolean dbBufferSync=false;
 
     //Auto flush if size of logBuffer larger than <bufferSize>.
 
@@ -114,6 +129,12 @@ public class LogMgr {
             Log log=new Log(type,source,title,content);
             System.out.println(log.getText());
             logBuffer.add(log);
+            if (LogMySQL.isEnable()){
+                dbBuffer.add(log);
+                if (LogMySQL.isReady()){
+                    flushDBBuffer();
+                }
+            }
             //check buffer current size
             if (ConsoleMain.cfg==null){
                 return log;
@@ -156,6 +177,19 @@ public class LogMgr {
             }
 
             logBuffer.clear();
+        }
+    }
+    public static synchronized void flushDBBuffer(){
+        synchronized (dbBufferSync){
+            for (Log log:dbBuffer){
+                try {
+                    boolean succ=LogMySQL.getStmt().execute("INSERT INTO logs (time,type,subject,title,content) " +
+                            "VALUES ('"+log.time+"','"+Log.getTypeText(log.type)+"','"+log.source.getText()+"','"+log.title+"','"+log.content+"')");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            dbBuffer.clear();
         }
     }
 }

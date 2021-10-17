@@ -2,7 +2,7 @@ package top.idoknow.ghost.console.adapter.rft;
 
 import com.rft.core.server.FileInfo;
 import com.rft.core.server.TaskEvent;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 
 public class FileReceiveEvent implements TaskEvent {
     @Override

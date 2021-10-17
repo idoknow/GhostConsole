@@ -1,7 +1,8 @@
 package top.idoknow.ghost.console.net.protocol;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
+import top.idoknow.ghost.console.util.Debug;
 
 import java.util.HashMap;
 
@@ -56,6 +57,7 @@ public abstract class AbstractProcessor {
     public void run(String data)throws Exception{
         String[] spt=parse(data);
         AbstractCommand target;
+        Debug.debug("looking for:"+spt[0]);
         if (commands.containsKey(spt[0])){
             target=commands.get(spt[0]);
         }else if (defaultCommand!=null){
