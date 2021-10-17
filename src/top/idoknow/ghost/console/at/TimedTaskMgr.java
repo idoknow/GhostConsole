@@ -1,6 +1,6 @@
 package top.idoknow.ghost.console.at;
 
-import top.idoknow.ghost.console.ioutil.LogMgr;
+import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.util.TimeUtil;
 
 import java.util.ArrayList;
