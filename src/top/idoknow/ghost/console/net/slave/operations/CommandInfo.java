@@ -14,7 +14,7 @@ public class CommandInfo extends AbstractCommand {
 
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) {
-        Debug.debug("recv info from slave.");
+
         handler.updateSubject(new Subject(params[1]+"-#"+((SlaveHandler)handler).getSID(),Subject.SLAVE));
 //        LogMgr.logMessage(handler.getSubject(),"Login","New slave logged in:"+handler.getSubject().getText());
         ((SlaveHandler)handler).updateVersion(params[2]);
@@ -23,6 +23,8 @@ public class CommandInfo extends AbstractCommand {
         SlaveAcceptor.sendSlaveList();
         //save online clients list
         SlaveAcceptor.saveOnlineSlaves();
+        LogMgr.logMessage(handler.getSubject(),"Login","New slave connected:"+handler.getSubject().getText());
+
 
         //TODO check rename task
         TagLogAdapter.getTagLog().addTag(handler.getSubject().getToken().split("-#")[0], ConsoleMain.LOGIN_TAG);

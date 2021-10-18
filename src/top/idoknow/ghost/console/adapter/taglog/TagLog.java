@@ -1,6 +1,6 @@
 package top.idoknow.ghost.console.adapter.taglog;
 
-import com.rft.core.util.FileRW;
+import top.idoknow.ghost.console.ioutil.FileIO;
 
 import java.io.File;
 import java.util.*;
@@ -49,7 +49,7 @@ public class TagLog {
         allOwner.get(ownerName).addTag(tag);
     }
     //ownerName:time tag,time2 tag2;ownerName:time tag;
-    public void pack(){
+    public void pack()throws Exception{
         if (!enable){
             return;
         }
@@ -68,10 +68,10 @@ public class TagLog {
             fileStr.append(aownerStr)
                     .append(";");
         }
-        FileRW.write("tagLog.txt",fileStr.toString());
+        FileIO.write("tagLog.txt",fileStr.toString(),true);
     }
     //ownerName:time tag,time2 tag2;ownerName:time tag;
-    public void load(){
+    public void load()throws Exception{
         if (!enable){
             return;
         }
@@ -79,7 +79,7 @@ public class TagLog {
         if(!new File("tagLog.txt").exists()){
             return;
         }
-        String[] owners = FileRW.read("tagLog.txt").split(";");
+        String[] owners = FileIO.read("tagLog.txt").split(";");
         for(String aowner:owners){
             tagOwner tagOwner=new tagOwner();
             String[] nameAndTags =aowner.split(":");

@@ -129,15 +129,15 @@ public class LogMgr {
             Log log=new Log(type,source,title,content);
             System.out.println(log.getText());
             logBuffer.add(log);
+            //check buffer current size
+            if (ConsoleMain.cfg==null){
+                return log;
+            }
             if (LogMySQL.isEnable()){
                 dbBuffer.add(log);
                 if (LogMySQL.isReady()){
                     flushDBBuffer();
                 }
-            }
-            //check buffer current size
-            if (ConsoleMain.cfg==null){
-                return log;
             }
             if (logBuffer.size()>=Integer.parseInt(ConsoleMain.cfg.getString("log-buffer-size"))){
                 flush(ConsoleMain.cfg.getString("log-file"));

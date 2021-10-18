@@ -43,7 +43,9 @@ public class CommandTest extends AbstractCommand {
             }
         }
         for (SlaveHandler diedSlave:died){
+            ((IHasWrapper)handler).getWrapper().wrapTimeLn("Killing:"+diedSlave.getSubject().getText());
             diedSlave.dispose();
         }
+        SlaveAcceptor.sendSlaveList();
     }
 }

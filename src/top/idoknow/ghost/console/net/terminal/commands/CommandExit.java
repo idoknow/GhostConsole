@@ -36,7 +36,7 @@ public class CommandExit extends AbstractCommand {
                 ((IHasWrapper)handler).getWrapper().wrapTimeLn("Kill redundant slaves.").flush();
                 ArrayList<String> alreadyScanHostNames = new ArrayList<>();
                 for (SlaveHandler slaveHandler : SlaveAcceptor.slaveHandlers) {
-                    String slaveName = slaveHandler.getSubject().getToken().split(" #")[0];
+                    String slaveName = slaveHandler.getSubject().getToken().split("-#")[0];
                     if (alreadyScanHostNames.contains(slaveName)) {
                         kill.add(slaveHandler);
                         ((IHasWrapper)handler).getWrapper().wrapTimeLn("Kill:"+slaveHandler.getSubject().getToken());
@@ -57,7 +57,7 @@ public class CommandExit extends AbstractCommand {
                         for (int j=0;j<SlaveAcceptor.slaveHandlers.size();j++) {
                             try {
                                 SlaveHandler conn1=SlaveAcceptor.slaveHandlers.get(j);
-                                if (conn==conn1||!conn.getSubject().getToken().split(" #")[0].equals(conn1.getSubject().getToken().split(" #")[0]))
+                                if (conn==conn1||!conn.getSubject().getToken().split("-#")[0].equals(conn1.getSubject().getToken().split("-#")[0]))
                                     continue;
                                 long ver1=Long.parseLong(conn1.getVersion().substring(1));
                                 if (ver0<ver1){
@@ -81,7 +81,7 @@ public class CommandExit extends AbstractCommand {
             return;
         }
         for (SlaveHandler slaveHandler:kill){
-            slaveHandler.getDataProxy().appendMsg("!!exit "+slaveHandler.getSubject().getToken().split(" #")[0]);
+            slaveHandler.getDataProxy().appendMsg("!!exit "+slaveHandler.getSubject().getToken().split("-#")[0]);
 //            slaveHandler.getDataProxy().flushMsg();
             slaveHandler.dispose();
         }

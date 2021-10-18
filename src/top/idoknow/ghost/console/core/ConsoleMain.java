@@ -27,6 +27,10 @@ import java.util.Timer;
  */
 public class ConsoleMain{
 
+    static{
+        System.out.println("Console Version:alpha0.1");
+    }
+
     public final static long consoleStartTime=new Date().getTime();
     public static Subject bootingSub=new Subject("boot",Subject.CONSOLE);
     //Write this notice to the head of properties file.
@@ -35,7 +39,7 @@ public class ConsoleMain{
             "#do not use this software in illegal ways.\n";
     //Write this default properties content to file if not exist.
     private static final String defProperties="" +
-            "" +
+            "welcome-message=Hello Ghost Console!" +
             "slave-port=1033\n" +
             "terminal-port=1034\n" +
             "rft-server-port=1035\n" +

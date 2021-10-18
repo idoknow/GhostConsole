@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="GhostConsole:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GhostConsole_jar</output-path>
+    <root id="archive" name="GhostConsole.jar">
+      <element id="module-output" name="GhostConsole" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/RFT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/RFTX2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/fastjson-1.2.53.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/mysql-connector-java-8.0.26.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

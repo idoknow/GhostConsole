@@ -13,6 +13,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -141,12 +142,15 @@ public class SlaveHandler extends AbstractHandler {
                         cmd.append((char)data);
 
                     }
+                    Debug.debug("slave recv command:"+cmd);
                     //read whole command data
                     try {
                         this.getProcessor().run(cmd.toString().replaceAll(""+(char)13,"").substring(0,cmd.length()-1));
+                        continue;
                     }catch (AbstractProcessor.CommandNotFoundException e){
                         //name not found,transfer to next step
                         slaveMessage(cmd.toString());
+                        continue;
                     }catch (Exception runningACommand){
                         runningACommand.printStackTrace();
                         LogMgr.log(LogMgr.ERROR,this.subject,"Process","Error occurred while processing data from slave.\n"
@@ -154,6 +158,7 @@ public class SlaveHandler extends AbstractHandler {
                         continue;
                     }
                 }
+                Debug.debug("slave recv message:"+(char)data);
                 //end command check
                 // transfer to next step
                 slaveMessage((char)data+"");
@@ -211,9 +216,7 @@ public class SlaveHandler extends AbstractHandler {
     public synchronized boolean heartbeat(long wait){
         receiveAliveResp=false;
 
-        new Thread(()-> {
-            getDataProxy().appendMsg("#alives#");
-        }).start();
+        getDataProxy().appendMsg("#alives#\n");
 
         try {
             Thread.sleep(wait);

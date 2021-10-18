@@ -16,7 +16,7 @@ public class TagLogAdapter {
         return tagLog;
     }
 
-    public static synchronized void init(){
+    public static synchronized void init()throws Exception{
 
         TagLog.enable= Boolean.parseBoolean(ConsoleMain.cfg.getString("enable-tag-log"));
         if (new File("taglog.txt").exists()){

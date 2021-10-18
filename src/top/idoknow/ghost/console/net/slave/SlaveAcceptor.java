@@ -174,7 +174,7 @@ public class SlaveAcceptor extends Thread{
             for (SlaveHandler slaveHandler : slaveHandlers) {
                 //写列表到文件以便rescueServer检测未启动客户端的机器
                 if (slaveHandler.getSubject().getIdentity()==Subject.SLAVE) {
-                    allOnlineClientList.append(slaveHandler.getSubject().getToken().split(" #")[0]).append(" ");
+                    allOnlineClientList.append(slaveHandler.getSubject().getToken().split("-#")[0]).append(" ");
                 }
             }
         }
