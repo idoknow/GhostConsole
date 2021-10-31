@@ -40,5 +40,6 @@ public class CommandFocus extends AbstractCommand {
             ((IHasWrapper)handler).getWrapper().wrapTimeLn("You are focusing on "+targetSlave.getSubject().getText());
         }
         ((IHasWrapper)handler).getWrapper().flush();
+        SlaveAcceptor.sendSlaveList();
     }
 }

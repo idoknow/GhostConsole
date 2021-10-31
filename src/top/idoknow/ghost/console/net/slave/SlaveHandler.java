@@ -82,7 +82,7 @@ public class SlaveHandler extends AbstractHandler {
     /**
      * Set the peer terminal which is focusing on this slave.
      * This is method should ONLY be called by the terminal focusing on this slave.
-     * @param terminal
+     * @param terminal terminal focused on this slave
      */
     public void setPeerTerminal(TerminalHandler terminal){
         this.peerTerminal=terminal;
@@ -126,7 +126,7 @@ public class SlaveHandler extends AbstractHandler {
         }
         //reading loop
         try {
-            int data=0;
+            int data;
             while ((data=dataProxy.getInputStream().read())!=-1){
                 if ((char)data=='!'){//if this is the start of a command,continue reading till the end.
                     StringBuilder cmd=new StringBuilder("!");
@@ -164,7 +164,7 @@ public class SlaveHandler extends AbstractHandler {
                 slaveMessage((char)data+"");
             }
         }catch (IOException readAndProcessMsg){
-            readAndProcessMsg.printStackTrace();
+//            readAndProcessMsg.printStackTrace();
             LogMgr.log(LogMgr.ERROR,this.subject,"Read","Failed to read from peer.\n"
                     + ConsoleMain.getErrorInfo(readAndProcessMsg));
             dispose();
@@ -185,7 +185,7 @@ public class SlaveHandler extends AbstractHandler {
             }
             disposed=true;
         }
-        this.stop();
+        Debug.debug("slave defocusing.");
         try {
             this.socket.close();
         }catch (Exception ignored){}
@@ -195,7 +195,9 @@ public class SlaveHandler extends AbstractHandler {
         if (this.getPeerTerminal()!=null){
             this.getPeerTerminal().defocus();
         }
+
         LogMgr.logMessage(this.subject,"Dispose","Disposed slave handler:"+SID);
+        this.stop();
     }
 
 
