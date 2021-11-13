@@ -9,6 +9,6 @@ public class CommandFinish extends AbstractCommand {
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) {
 
-        TerminalAcceptor.sendDataToAllTerminal("!finish!");
+        TerminalAcceptor.sendDataToAllTerminals("!finish!");
     }
 }

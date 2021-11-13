@@ -93,7 +93,7 @@ public class SlaveAcceptor extends Thread{
             }
         }
         msg.append("!");
-        TerminalAcceptor.sendDataToAllTerminal(msg.toString());
+        TerminalAcceptor.sendDataToAllTerminals(msg.toString());
     }
 
     /**

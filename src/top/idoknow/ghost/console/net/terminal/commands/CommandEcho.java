@@ -16,7 +16,7 @@ public class CommandEcho extends AbstractCommand {
             throw new UnauthorizedSessionException("unauthorized terminal session.");
         }
         LogMgr.logMessage(handler.getSubject(),"Echo"," "+rawData.substring(6));
-        TerminalAcceptor.sendDataToAllTerminal(((IHasWrapper)handler).getWrapper()
+        TerminalAcceptor.sendDataToAllTerminals(((IHasWrapper)handler).getWrapper()
                 .wrapTimeLn("["+handler.getSubject().getText()+"] "+rawData.substring(6))
                 .getBuffer());
     }
