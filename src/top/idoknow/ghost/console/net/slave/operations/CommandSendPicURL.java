@@ -6,6 +6,7 @@ import top.idoknow.ghost.console.net.protocol.AbstractCommand;
 import top.idoknow.ghost.console.net.protocol.AbstractHandler;
 import top.idoknow.ghost.console.net.slave.SlaveHandler;
 import top.idoknow.ghost.console.net.terminal.TerminalAcceptor;
+import top.idoknow.ghost.console.util.Debug;
 
 public class CommandSendPicURL extends AbstractCommand {
 
@@ -14,6 +15,8 @@ public class CommandSendPicURL extends AbstractCommand {
         ((SlaveHandler)handler).getPeerTerminal()
                 .getWrapper().wrapTimeLn("["+handler.getSubject().getText()+"] 获取到新截图,url:"
                 + ConsoleMain.cfg.getString("workdir-http-url")
+                + RFTAdapter.rftServer.getReceiver().getRootPath()+params[1]).flush();
+        Debug.debug("sendpicurl:"+ConsoleMain.cfg.getString("workdir-http-url")
                 + RFTAdapter.rftServer.getReceiver().getRootPath()+params[1]);
 
         //Send to terminal who has label "screenShot"
