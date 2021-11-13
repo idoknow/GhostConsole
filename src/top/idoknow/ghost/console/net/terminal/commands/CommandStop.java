@@ -8,6 +8,10 @@ import top.idoknow.ghost.console.net.protocol.IHasWrapper;
 import top.idoknow.ghost.console.net.terminal.UnauthorizedSessionException;
 import top.idoknow.ghost.console.subject.Subject;
 
+/**
+ * Stop console with stop code 0
+ * @author Rock Chin
+ */
 public class CommandStop extends AbstractCommand {
     @Override
     public void process(String[] params, AbstractHandler handler, String rawData) throws Exception {

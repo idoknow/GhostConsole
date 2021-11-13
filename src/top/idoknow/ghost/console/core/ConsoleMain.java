@@ -23,7 +23,12 @@ import java.util.Timer;
 
 /**
  * The Entrance of GhostConsole.
- * Initialize all modules and tasks.
+ * Initializes all modules and tasks.
+ * <br>
+ * GhostConsole is an impls of the classical protocol of Ghost,and is a refactor of the old server software.
+ *
+ * @see <a href="https://github.com/RockChinQ/GhostJ">Old Impl of this legacy protocol</a>
+ * @author Rock Chin
  */
 public class ConsoleMain{
 
@@ -198,6 +203,10 @@ public class ConsoleMain{
         ConsoleMain.terminalAcceptor.start();
     }
 
+    /**
+     * Flush logs and stop console with provided stop code.
+     * @param status stop code
+     */
     public static void stopConsole(int status){
         try {
             LogMgr.flush(cfg.getString("log-file"));
@@ -206,7 +215,11 @@ public class ConsoleMain{
     }
 
 
-
+    /**
+     * Return the message and stack trace of an exception object
+     * @param e exception object
+     * @return message and stack trace
+     */
     public static String getErrorInfo(Exception e){
         StringWriter sw=new StringWriter();
         PrintWriter pw=new PrintWriter(sw);

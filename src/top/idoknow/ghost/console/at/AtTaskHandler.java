@@ -5,6 +5,10 @@ import top.idoknow.ghost.console.net.protocol.IHasWrapper;
 import top.idoknow.ghost.console.net.protocol.MessageWrapper;
 import top.idoknow.ghost.console.subject.Subject;
 
+/**
+ * An impl of AbstractHandler as the subject of 'at' tasks
+ * @author Rock Chin
+ */
 public class AtTaskHandler extends AbstractHandler implements IHasWrapper {
 
     MessageWrapper wrapper;
@@ -14,7 +18,6 @@ public class AtTaskHandler extends AbstractHandler implements IHasWrapper {
     }
     @Override
     public void dispose() {
-        return;
     }
 
     @Override

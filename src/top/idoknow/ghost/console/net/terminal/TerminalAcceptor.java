@@ -3,6 +3,7 @@ package top.idoknow.ghost.console.net.terminal;
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.log.LogMgr;
 import top.idoknow.ghost.console.subject.Subject;
+import top.idoknow.ghost.console.util.Debug;
 import top.idoknow.ghost.console.util.TimeUtil;
 
 import java.net.ServerSocket;
@@ -77,7 +78,11 @@ public class TerminalAcceptor extends Thread{
         sendDataToSpecificTerminal("listenerMaster",result.toString());
     }
 
-    public static void sendDataToAllTerminal(String data){
+    /**
+     * Send data to all logged in terminals
+     * @param data data to send
+     */
+    public static void sendDataToAllTerminals(String data){
         synchronized (terminalHandlersSync){
             for (TerminalHandler handler:terminalHandlers){
                 handler.getDataProxy().appendMsg(data);
@@ -86,10 +91,16 @@ public class TerminalAcceptor extends Thread{
         }
     }
 
-    public static void sendDataToSpecificTerminal(String containedAttri,String data){
+    /**
+     * Send data to terminals who have the specific attribute
+     * @param containedAttribute specific attribute
+     * @param data data to be sent
+     */
+    public static void sendDataToSpecificTerminal(String containedAttribute,String data){
         synchronized (terminalHandlersSync) {
+            Debug.debug("Selecting terminal with:"+containedAttribute);
             for (TerminalHandler handler : terminalHandlers) {
-                if(handler.getAttributes().contains(containedAttri)){
+                if(handler.getAttributes().contains(containedAttribute)){
                     handler.getDataProxy().appendMsg(data);
 //                    handler.getDataProxy().flushMsg();
                 }
