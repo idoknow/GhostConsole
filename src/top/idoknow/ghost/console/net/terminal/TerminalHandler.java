@@ -66,6 +66,10 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     public ArrayList<String> getAttributes(){
         return attributes;
     }
+    public void addAttribute(String attribute){
+        Debug.debug("attribute added:"+attribute);
+        attributes.add(attribute);
+    }
 
     private SlaveHandler focusedSlave=null;
 
