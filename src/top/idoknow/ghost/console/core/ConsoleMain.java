@@ -171,7 +171,7 @@ public class ConsoleMain{
                 stopConsole(-1);
             }
         }else {
-            LogMgr.logMessage(bootingSub,"Boot","Auto space clean task is unable.");
+            LogMgr.logMessage(bootingSub,"Boot","Auto space clean task is disable.");
         }
 
 
@@ -179,7 +179,7 @@ public class ConsoleMain{
             TerminalAccountMgr.loadFromFile();
             LogMgr.logMessage(bootingSub,"Boot","Loaded accounts from file("+TerminalAccountMgr.countAccounts()+").");
         }else {
-            LogMgr.logMessage(bootingSub,"Boot","Multi-account is unable.");
+            LogMgr.logMessage(bootingSub,"Boot","Multi-account is disable.");
         }
 
         if (LogMySQL.isEnable()){
@@ -191,7 +191,7 @@ public class ConsoleMain{
                 stopConsole(-1);
             }
         }else {
-            LogMgr.logMessage(bootingSub,"Boot","Log-to-MySQL is unable.");
+            LogMgr.logMessage(bootingSub,"Boot","Log-to-MySQL is disable.");
         }
 
     }
