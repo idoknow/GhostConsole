@@ -74,7 +74,7 @@ public class SlaveAcceptor extends Thread{
      * Slave will be labelled "focused" if it focused by any terminal.
      */
     public static void sendSlaveList(){
-        Debug.debug("sending slave list;");
+        Debug.debug(slaveAcceptorSub,"sending slave list;");
         StringBuilder msg=new StringBuilder("!clients");
         for(SlaveHandler handler:slaveHandlers){
             if (handler.getSubject().getIdentity()!=Subject.UNDEFINED) {

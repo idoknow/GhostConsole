@@ -16,7 +16,7 @@ public class CommandSendPicURL extends AbstractCommand {
                 .getWrapper().wrapTimeLn("["+handler.getSubject().getText()+"] 获取到新截图,url:"
                 + ConsoleMain.cfg.getString("workdir-http-url")
                 + RFTAdapter.rftServer.getReceiver().getRootPath()+params[1]).flush();
-        Debug.debug("sendpicurl:"+ConsoleMain.cfg.getString("workdir-http-url")
+        Debug.debug(handler.getSubject(),"sendpicurl:"+ConsoleMain.cfg.getString("workdir-http-url")
                 + RFTAdapter.rftServer.getReceiver().getRootPath()+params[1]);
 
         //Send to terminal who has label "screenShot"

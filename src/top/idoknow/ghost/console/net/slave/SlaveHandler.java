@@ -141,7 +141,7 @@ public class SlaveHandler extends AbstractHandler {
                         cmd.append((char)data);
 
                     }
-                    Debug.debug("slave recv command:"+cmd);
+                    Debug.debug(getSubject(),"slave recv command:"+cmd);
                     //read whole command data
                     try {
                         this.getProcessor().run(cmd.toString().replaceAll(""+(char)13,"").substring(0,cmd.length()-1));
@@ -157,7 +157,7 @@ public class SlaveHandler extends AbstractHandler {
                         continue;
                     }
                 }
-                Debug.debug("slave recv message:"+(char)data);
+                Debug.debug(getSubject(),"slave recv message:"+(char)data);
                 //end command check
                 // transfer to next step
                 slaveMessage((char)data+"");
@@ -184,7 +184,7 @@ public class SlaveHandler extends AbstractHandler {
             }
             disposed=true;
         }
-        Debug.debug("slave defocusing.");
+        Debug.debug(getSubject(),"slave defocusing.");
         try {
             this.socket.close();
         }catch (Exception ignored){}

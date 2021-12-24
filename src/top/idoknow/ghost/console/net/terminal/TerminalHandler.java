@@ -66,7 +66,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
         return attributes;
     }
     public void addAttribute(String attribute){
-        Debug.debug("attribute added:"+attribute);
+        Debug.debug(getSubject(),"attribute added:"+attribute);
         attributes.add(attribute);
     }
 
@@ -147,7 +147,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
                     }
                     line.append((char)data);
                 }
-                Debug.debug("Recv:"+line);
+                Debug.debug(getSubject(),"Recv:"+line);
                 //process
                 try {
                     this.getProcessor().run(line.toString().replaceAll(""+(char)13,""));

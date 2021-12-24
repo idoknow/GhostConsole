@@ -98,7 +98,7 @@ public class TerminalAcceptor extends Thread{
      */
     public static void sendDataToSpecificTerminal(String containedAttribute,String data){
         synchronized (terminalHandlersSync) {
-            Debug.debug("Selecting terminal with:"+containedAttribute);
+            Debug.debug(terminalAcceptorSub,"Selecting terminal with:"+containedAttribute);
             for (TerminalHandler handler : terminalHandlers) {
                 if(handler.getAttributes().contains(containedAttribute)){
                     handler.getDataProxy().appendMsg(data);

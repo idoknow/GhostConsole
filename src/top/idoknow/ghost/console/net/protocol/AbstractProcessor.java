@@ -2,6 +2,7 @@ package top.idoknow.ghost.console.net.protocol;
 
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.log.LogMgr;
+import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.Debug;
 
 import java.util.HashMap;
@@ -17,6 +18,8 @@ public abstract class AbstractProcessor {
             super(message);
         }
     }
+
+    private final Subject absProcessorSubject=new Subject("AbstractProcessor",Subject.CONSOLE);
 
     private final AbstractHandler handler;
     public AbstractProcessor(AbstractHandler handler){
@@ -57,7 +60,7 @@ public abstract class AbstractProcessor {
     public void run(String data)throws Exception{
         String[] spt=parse(data);
         AbstractCommand target;
-        Debug.debug("looking for:"+spt[0]);
+        Debug.debug(absProcessorSubject,"looking for:"+spt[0]);
         if (commands.containsKey(spt[0])){
             target=commands.get(spt[0]);
         }else if (defaultCommand!=null){
