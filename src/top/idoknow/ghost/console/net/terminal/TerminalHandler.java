@@ -1,5 +1,6 @@
 package top.idoknow.ghost.console.net.terminal;
 
+import sun.nio.cs.ext.GBK;
 import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.log.LogMgr;
@@ -9,9 +10,7 @@ import top.idoknow.ghost.console.net.slave.SlaveHandler;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.Debug;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,8 +126,8 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     public void run(){
         //init
         try{
-            DataInputStream inputStream=new DataInputStream(getSocket().getInputStream());
-            DataOutputStream outputStream=new DataOutputStream(getSocket().getOutputStream());
+            InputStreamReader inputStream=new InputStreamReader(getSocket().getInputStream(), "GBK");
+            OutputStreamWriter outputStream=new OutputStreamWriter(getSocket().getOutputStream(),"GBK");
             this.dataProxy=new DataProxy(inputStream,outputStream,this);
             this.wrapper=new MessageWrapper(this.dataProxy);
         }catch (Exception createStream){
@@ -142,7 +141,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
             while (true){
                 //Read single line of the data
                 StringBuilder line=new StringBuilder();
-                while ((data=dataProxy.getInputStream().read())!=-1){
+                while ((data=dataProxy.getInputStreamReader().read())!=-1){
                     if ((char)data=='\n'){
                         break;
                     }
@@ -216,9 +215,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     public synchronized void heartbeat(){
         receiveAliveResp=false;
 
-        new Thread(()->{
-            getDataProxy().appendMsg("!alivem!");
-        }).start();
+        new Thread(()-> getDataProxy().appendMsg("!alivem!")).start();
 
         try {
             Thread.sleep(ALIVE_WAIT_TIMEOUT);

@@ -9,9 +9,7 @@ import top.idoknow.ghost.console.net.terminal.TerminalHandler;
 import top.idoknow.ghost.console.subject.Subject;
 import top.idoknow.ghost.console.util.Debug;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -116,8 +114,9 @@ public class SlaveHandler extends AbstractHandler {
     public void run(){
         //initialize
         try {
-            DataInputStream inputStream = new DataInputStream(socket.getInputStream());
-            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            //idk why i can solve this problem by change it to UTF-8,but when it can run in some puzzling way,DO NOT touch it again.
+            InputStreamReader inputStream = new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8);
+            OutputStreamWriter outputStream = new OutputStreamWriter(socket.getOutputStream(),"GBK");
             this.dataProxy=new DataProxy(inputStream,outputStream,this);
         }catch (Exception createStream){
             createStream.printStackTrace();
@@ -127,10 +126,10 @@ public class SlaveHandler extends AbstractHandler {
         //reading loop
         try {
             int data;
-            while ((data=dataProxy.getInputStream().read())!=-1){
+            while ((data=dataProxy.getInputStreamReader().read())!=-1){
                 if ((char)data=='!'){//if this is the start of a command,continue reading till the end.
                     StringBuilder cmd=new StringBuilder("!");
-                    while((data=dataProxy.getInputStream().read())!=-1){
+                    while((data=dataProxy.getInputStreamReader().read())!=-1){
                         if((char)data=='!') {
                             cmd.append("!");
                             break;
