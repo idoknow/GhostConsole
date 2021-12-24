@@ -65,7 +65,9 @@ public class ConsoleMain{
             "log-to-mysql-address=\n" +
             "mysql-user=\n" +
             "mysql-password=\n" +
-            "mysql-database=\n";
+            "mysql-database=\n" +
+            "log-output-level=1\n" +
+            "";
 
     //create properties file if not exist
     static {

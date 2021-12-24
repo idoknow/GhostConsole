@@ -17,6 +17,7 @@ import java.util.TimerTask;
  */
 public class LogMgr {
     public static final int DEBUG=0,INFO=1,WARNING=2,ERROR=3,CRASH=4;
+    static final int logOutputLevel=Integer.parseInt(ConsoleMain.cfg.getString("log-output-level"));
     /**
      * Defines attributes of a message
      */
@@ -127,13 +128,16 @@ public class LogMgr {
     public static Log log(int type,Subject source,String title,String content){
         synchronized (logBufferSync){
             Log log=new Log(type,source,title,content);
-            System.out.println(log.getText());
+
+            if (type>=logOutputLevel) {
+                System.out.println(log.getText());
+            }
             logBuffer.add(log);
             //check buffer current size
             if (ConsoleMain.cfg==null){
                 return log;
             }
-            if (LogMySQL.isEnable()){
+            if (LogMySQL.isEnable()&&type!=DEBUG){
                 dbBuffer.add(log);
                 if (LogMySQL.isReady()){
                     flushDBBuffer();
@@ -184,12 +188,21 @@ public class LogMgr {
             for (Log log:dbBuffer){
                 try {
                     boolean succ=LogMySQL.getStmt().execute("INSERT INTO logs (time,type,subject,title,content) " +
-                            "VALUES ('"+log.time+"','"+Log.getTypeText(log.type)+"','"+log.source.getText()+"','"+log.title+"','"+log.content+"')");
+                            "VALUES ('"+log.time+"','"+rawToEscape(Log.getTypeText(log.type))+"','"
+                            +rawToEscape(log.source.getText())
+                            +"','"+rawToEscape(log.title)
+                            +"','"+rawToEscape(log.content)+"')");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
             dbBuffer.clear();
         }
+    }
+
+    public static String rawToEscape(String raw){
+        String str1 = raw.replaceAll("\\\\", "\\\\\\\\");
+        String str2 = str1.replaceAll("'", "\\\\'");
+        return str2;
     }
 }
