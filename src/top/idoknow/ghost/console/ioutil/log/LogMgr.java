@@ -17,6 +17,7 @@ import java.util.TimerTask;
  */
 public class LogMgr {
     public static final int DEBUG=0,INFO=1,WARNING=2,ERROR=3,CRASH=4;
+    //Get from configuration file,any message type num less than this will be logged in mute.
     static final int logOutputLevel=Integer.parseInt(ConsoleMain.cfg.getString("log-output-level"));
     /**
      * Defines attributes of a message

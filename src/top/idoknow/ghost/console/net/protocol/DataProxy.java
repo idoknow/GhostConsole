@@ -51,8 +51,8 @@ public class DataProxy {
 
     /**
      * Initialize DataProxy instance with provided stream objects.
-     * @param inputStreamReader created input stream obj
-     * @param outputStreamWriter created output stream obj
+     * @param inputStreamReader created input stream reader obj
+     * @param outputStreamWriter created output stream writer obj
      * @param handler slave handler who hold this dataProxy
      */
     public DataProxy(InputStreamReader inputStreamReader, OutputStreamWriter outputStreamWriter, AbstractHandler handler){
@@ -80,7 +80,6 @@ public class DataProxy {
             pendingMsg.add(bytes);
             pendingSize++;
             pendingMsg.notify();
-//            Debug.debug("###########appending message#######:"+new String(bytes)+"$$$$$$$$$$$$size:"+pendingSize);
         }
     }
 

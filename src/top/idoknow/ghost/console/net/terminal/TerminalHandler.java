@@ -1,6 +1,5 @@
 package top.idoknow.ghost.console.net.terminal;
 
-import sun.nio.cs.ext.GBK;
 import top.idoknow.ghost.console.adapter.taglog.TagLogAdapter;
 import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.ioutil.log.LogMgr;

@@ -23,6 +23,7 @@ import java.util.Timer;
 
 /**
  * The Entrance of GhostConsole.
+ * Check or create configuration file.
  * Initializes all modules and tasks.
  * <br>
  * GhostConsole is an impls of the classical protocol of Ghost,and is a refactor of the old server software.
