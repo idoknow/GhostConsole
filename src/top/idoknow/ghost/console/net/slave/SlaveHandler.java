@@ -119,7 +119,7 @@ public class SlaveHandler extends AbstractHandler {
             OutputStreamWriter outputStream = new OutputStreamWriter(socket.getOutputStream(),"GBK");
             this.dataProxy=new DataProxy(inputStream,outputStream,this);
         }catch (Exception createStream){
-            createStream.printStackTrace();
+//            createStream.printStackTrace();
             LogMgr.log(LogMgr.ERROR,this.subject,"Stream","Cannot create streams of socket of slave handler:"+SID);
             dispose();
         }
@@ -151,7 +151,7 @@ public class SlaveHandler extends AbstractHandler {
                         slaveMessage(cmd.toString());
                         continue;
                     }catch (Exception runningACommand){
-                        runningACommand.printStackTrace();
+//                        runningACommand.printStackTrace();
                         LogMgr.log(LogMgr.ERROR,this.subject,"Process","Error occurred while processing data from slave.\n"
                                 +ConsoleMain.getErrorInfo(runningACommand));
                         continue;
@@ -164,8 +164,7 @@ public class SlaveHandler extends AbstractHandler {
             }
         }catch (IOException readAndProcessMsg){
 //            readAndProcessMsg.printStackTrace();
-            LogMgr.log(LogMgr.ERROR,this.subject,"Read","Failed to read from peer.\n"
-                    + ConsoleMain.getErrorInfo(readAndProcessMsg));
+            LogMgr.log(LogMgr.ERROR,this.subject,"Read","Failed to read from peer.\n");
             dispose();
         }
     }

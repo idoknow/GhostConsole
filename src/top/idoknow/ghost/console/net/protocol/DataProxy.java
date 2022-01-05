@@ -42,8 +42,7 @@ public class DataProxy {
             }
         }catch (Exception msgSenderThreadDown){
 //            msgSenderThreadDown.printStackTrace();
-            LogMgr.log(LogMgr.ERROR,handler.getSubject(),"MsgSender","Msg sender is now down:\n"
-                    + ConsoleMain.getErrorInfo(msgSenderThreadDown));
+            LogMgr.log(LogMgr.ERROR,handler.getSubject(),"MsgSender","Msg sender is now down.\n");
             handler.dispose();
         }
     });
