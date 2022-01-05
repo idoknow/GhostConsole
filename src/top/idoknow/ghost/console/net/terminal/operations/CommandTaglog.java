@@ -19,7 +19,7 @@ public class CommandTaglog extends AbstractCommand {
             throw new UnauthorizedSessionException("unauthorized terminal session.");
         }
         if (!TagLog.isEnable()){
-            ((IHasWrapper)handler).getWrapper().wrapTimeLn("TagLog is unable.").flush();
+            ((IHasWrapper)handler).getWrapper().wrapTimeLn("TagLog is disabled.").flush();
             return;
         }
 

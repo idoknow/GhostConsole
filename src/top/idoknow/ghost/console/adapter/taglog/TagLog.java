@@ -35,13 +35,13 @@ public class TagLog {
     }
 
     private void addOwner(String indexName){
-        if (!enable){
+        if (!isEnable()){
             return;
         }
         allOwner.put(indexName,new tagOwner());
     }
     public void addTag(String ownerName,String tag){
-        if (!enable){
+        if (!isEnable()){
             return;
         }
         if(!allOwner.containsKey(ownerName))
@@ -50,7 +50,7 @@ public class TagLog {
     }
     //ownerName:time tag,time2 tag2;ownerName:time tag;
     public void pack()throws Exception{
-        if (!enable){
+        if (!isEnable()){
             return;
         }
         StringBuilder fileStr=new StringBuilder();
@@ -72,7 +72,7 @@ public class TagLog {
     }
     //ownerName:time tag,time2 tag2;ownerName:time tag;
     public void load()throws Exception{
-        if (!enable){
+        if (!isEnable()){
             return;
         }
         allOwner.clear();

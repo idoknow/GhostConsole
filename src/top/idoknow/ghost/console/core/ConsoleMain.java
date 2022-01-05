@@ -45,7 +45,7 @@ public class ConsoleMain{
             "#do not use this software in illegal ways.\n";
     //Write this default properties content to file if not exist.
     private static final String defProperties="" +
-            "welcome-message=Hello Ghost Console!" +
+            "welcome-message=Hello Ghost Console!\n" +
             "slave-port=1033\n" +
             "terminal-port=1034\n" +
             "rft-server-port=1035\n" +
