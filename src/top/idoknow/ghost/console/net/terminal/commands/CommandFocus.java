@@ -37,7 +37,7 @@ public class CommandFocus extends AbstractCommand {
             ((IHasWrapper)handler).getWrapper().wrapTimeLn("This slave is now focused by "+targetSlave.getPeerTerminal().getSubject().getText()+"("+targetSlave.getSID()+").");
         }else {
             ((TerminalHandler)handler).focus(targetSlave);
-            ((IHasWrapper)handler).getWrapper().wrapTimeLn("You are focusing on "+targetSlave.getSubject().getText());
+            ((IHasWrapper)handler).getWrapper().wrapTimeLn("You are now focusing on "+targetSlave.getSubject().getText());
         }
         ((IHasWrapper)handler).getWrapper().flush();
         SlaveAcceptor.sendSlaveList();

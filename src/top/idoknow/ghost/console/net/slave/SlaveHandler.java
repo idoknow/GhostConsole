@@ -79,7 +79,7 @@ public class SlaveHandler extends AbstractHandler {
 
     /**
      * Set the peer terminal which is focusing on this slave.
-     * This is method should ONLY be called by the terminal focusing on this slave.
+     * This method should ONLY be called by the terminal focusing on this slave.
      * @param terminal terminal focused on this slave
      */
     public void setPeerTerminal(TerminalHandler terminal){
@@ -203,11 +203,11 @@ public class SlaveHandler extends AbstractHandler {
      * Process messages from slave if this is not a operation command.
      * @param data msg from slave(maybe single character)
      */
-    private void slaveMessage(String data){
+    private boolean slaveMessage(String data){
         if (this.getSubject().getIdentity()==Subject.UNDEFINED){
             this.dispose();
         }
-        tellPeer(data);
+        return tellPeer(data);
     }
     private boolean receiveAliveResp=false;
     public void receiveResp(){
