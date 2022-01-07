@@ -68,6 +68,7 @@ public class ConsoleMain{
             "mysql-password=\n" +
             "mysql-database=\n" +
             "log-output-level=1\n" +
+            "slave-message-history-size=256\n" +
             "";
 
     //create properties file if not exist

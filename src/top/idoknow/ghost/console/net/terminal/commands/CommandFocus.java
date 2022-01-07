@@ -33,10 +33,13 @@ public class CommandFocus extends AbstractCommand {
             return;
         }
         if (targetSlave.getPeerTerminal()!=null){//already focused by another terminal
-            targetSlave.getPeerTerminal().getWrapper().wrapTimeLn(handler.getSubject().getText()+" is requesting the slave you are focusing on.");
+            targetSlave.getPeerTerminal().getWrapper().wrapTimeLn("\n"+handler.getSubject().getText()+" is requesting the slave you are focusing on.");
             ((IHasWrapper)handler).getWrapper().wrapTimeLn("This slave is now focused by "+targetSlave.getPeerTerminal().getSubject().getText()+"("+targetSlave.getSID()+").");
         }else {
             ((TerminalHandler)handler).focus(targetSlave);
+            //Output slave's history message
+            ((IHasWrapper)handler).getWrapper().wrapTimeLn("====== History Message ======\n"+targetSlave.readHistory());
+            ((IHasWrapper)handler).getWrapper().wrapTimeLn("====== History Message of This Slave ======");
             ((IHasWrapper)handler).getWrapper().wrapTimeLn("You are now focusing on "+targetSlave.getSubject().getText());
         }
         ((IHasWrapper)handler).getWrapper().flush();

@@ -216,6 +216,27 @@ public class SlaveHandler extends AbstractHandler {
     }
 
 
+    private StringBuffer messageHistory=new StringBuffer();
+    private static final int HISTORY_SIZE=Integer.parseInt(ConsoleMain.cfg.getString("slave-message-history-size"));
+
+    /**
+     * Append message to message history and cut previous message if length is larger than HISTORY_SIZE
+     * @param s new message
+     */
+    public void recordHistory(String s){
+        if (HISTORY_SIZE<1){
+            return;
+        }
+        messageHistory.append(s);
+        if (messageHistory.length()>HISTORY_SIZE){
+            messageHistory=new StringBuffer(messageHistory.substring(messageHistory.length()-HISTORY_SIZE,messageHistory.length()));
+        }
+    }
+
+    public String readHistory(){
+        return messageHistory.toString();
+    }
+
     /**
      * Process messages from slave if this is not a operation command.
      * @param data msg from slave(maybe single character)
@@ -224,12 +245,15 @@ public class SlaveHandler extends AbstractHandler {
         if (this.getSubject().getIdentity()==Subject.UNDEFINED){
             this.dispose();
         }
+        recordHistory(data);
         return tellPeer(data);
     }
     private boolean receiveAliveResp=false;
     public void receiveResp(){
         this.receiveAliveResp=true;
     }
+
+
     public synchronized boolean heartbeat(long wait){
         receiveAliveResp=false;
 

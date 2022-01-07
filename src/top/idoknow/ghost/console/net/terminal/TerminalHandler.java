@@ -87,7 +87,7 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
     public void defocus(){
         if (focusedSlave!=null){
             focusedSlave.removePeerTerminal();
-            getWrapper().wrapTimeLn("Defocus from slave:"
+            getWrapper().wrapTimeLn("\nDefocus from slave:"
                     +getFocusedSlave().getSubject().getToken()+"|"
                     +getFocusedSlave().getSID()).flush();
             LogMgr.logMessage(getSubject(),"Focus","Defocus:"+focusedSlave.getSubject().getText());
