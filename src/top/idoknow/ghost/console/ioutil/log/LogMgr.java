@@ -75,7 +75,7 @@ public class LogMgr {
                     typeText="debug";
                     break;
                 case INFO:
-                    typeText="info";
+                    typeText="info ";
                     break;
                 case WARNING:
                     typeText="warning";
@@ -208,7 +208,6 @@ public class LogMgr {
 
     public static String rawToEscape(String raw){
         String str1 = raw.replaceAll("\\\\", "\\\\\\\\");
-        String str2 = str1.replaceAll("'", "\\\\'");
-        return str2;
+        return str1.replaceAll("'", "\\\\'");
     }
 }

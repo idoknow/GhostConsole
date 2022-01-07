@@ -33,10 +33,6 @@ import java.util.Timer;
  */
 public class ConsoleMain{
 
-    static{
-        System.out.println("Console Version:alpha0.1");
-    }
-
     public final static long consoleStartTime=new Date().getTime();
     public static Subject bootingSub=new Subject("boot",Subject.CONSOLE);
     //Write this notice to the head of properties file.
