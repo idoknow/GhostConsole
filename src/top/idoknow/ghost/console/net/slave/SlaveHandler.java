@@ -13,6 +13,8 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Initialized by SlaveAcceptor.
@@ -123,6 +125,21 @@ public class SlaveHandler extends AbstractHandler {
             LogMgr.log(LogMgr.ERROR,this.subject,"Stream","Cannot create streams of socket of slave handler:"+SID);
             dispose();
         }
+        //Auto kick task
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    if (!heartbeat(3000)) {
+                        LogMgr.log(LogMgr.WARNING,getSubject(),"AutoKick","Response time out.");
+                        dispose();
+                    }
+                }catch (Exception ignored){}
+            }
+        }, 3000, 30000);
+
+
         //reading loop
         try {
             int data;
