@@ -199,11 +199,11 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
             TerminalAcceptor.terminalHandlers.remove(this);
         }
         this.defocus();
-        this.stop();
         try {
             this.socket.close();
         }catch (Exception ignored){}
         LogMgr.logMessage(this.subject,"Dispose","Disposed terminal handler:"+TID);
+        this.stop();
     }
 
 

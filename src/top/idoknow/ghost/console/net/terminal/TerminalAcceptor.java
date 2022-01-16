@@ -38,6 +38,7 @@ public class TerminalAcceptor extends Thread{
                 throw new Exception("Server socket is null");
             }
             while (true){
+                Debug.debug(terminalAcceptorSub,"Accepting...");
                 Socket terminalSocket=serverSocket.accept();
                 TerminalHandler handler=new TerminalHandler(terminalSocket);
                 synchronized (terminalHandlersSync){
