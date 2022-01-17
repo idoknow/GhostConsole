@@ -116,7 +116,7 @@ public class SlaveHandler extends AbstractHandler {
     public void run(){
         //initialize
         try {
-            //idk why i can solve this problem by change it to UTF-8,but when it can run in some puzzling way,DO NOT touch it again.
+            //IDK why I can solve this problem by change it to UTF-8,but when it can run in some puzzling way,DO NOT touch it again.
             InputStreamReader inputStream = new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8);
             OutputStreamWriter outputStream = new OutputStreamWriter(socket.getOutputStream(),"GBK");
             this.dataProxy=new DataProxy(inputStream,outputStream,this);
@@ -238,7 +238,7 @@ public class SlaveHandler extends AbstractHandler {
     }
 
     /**
-     * Process messages from slave if this is not a operation command.
+     * Process messages from slave if this is not an operation command.
      * @param data msg from slave(maybe single character)
      */
     private boolean slaveMessage(String data){

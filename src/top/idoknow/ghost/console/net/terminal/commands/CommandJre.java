@@ -50,7 +50,7 @@ public class CommandJre extends AbstractCommand {
                     throw new CommandSyntaxException("!jre reg <version:long> <index0,index1,index2...index n> ");
                 }
 
-                long version=0;
+                long version;
                 //check if version is a long
                 try {
                     version=Long.parseLong(params[2]);
@@ -68,8 +68,8 @@ public class CommandJre extends AbstractCommand {
                             LogMgr.logMessage(handler.getSubject(),"JREReg", "Reg:"+params[2]+"\t"+jreFile.getFilePath()+"\t"+jreFile.getFileName()+"\t"+jreFile.getTag());
                         }
                     }else {//a index
-                        int indexNum=0;
-                        //Check if this is a integer
+                        int indexNum;
+                        //Check if this is an integer
                         try {
                             indexNum=Integer.parseInt(index);
                         }catch (Exception e){
@@ -107,9 +107,9 @@ public class CommandJre extends AbstractCommand {
                             ((IHasWrapper)handler).getWrapper().wrapTimeLn("Tag:"+params[2]+"\t"+jreFile.getFilePath()+"\t"+jreFile.getFileName()+"\t"+jreFile.getTag());
                             LogMgr.logMessage(handler.getSubject(),"JREReg", "Tag:"+params[2]+"\t"+jreFile.getFilePath()+"\t"+jreFile.getFileName()+"\t"+jreFile.getTag());
                         }
-                    }else {//a index
-                        int indexNum=0;
-                        //Check if this is a integer
+                    }else {//an index
+                        int indexNum;
+                        //Check if this is an integer
                         try {
                             indexNum=Integer.parseInt(index);
                         }catch (Exception e){

@@ -18,16 +18,12 @@ public class CommandLsmst extends AbstractCommand {
         StringBuilder result=new StringBuilder("!msts");
         synchronized (TerminalAcceptor.terminalHandlersSync){
             for(TerminalHandler handler1:TerminalAcceptor.terminalHandlers){
-//                msts.append(" "+master.socket.getInetAddress()+":"
-//                +master.socket.getPort()+"|"+TimeUtil.millsToMMDDHHmmSS(master.connTime)
-//                +"|"+(master.attributes.contains("desktop")?1:0));
                 result.append(" "+handler1.getSocket().getInetAddress()+":"
                         +handler1.getSocket().getPort()+"|"+ TimeUtil.millsToMMDDHHmmSS(handler1.getAuthTime())
                         +"|"+(handler1.getAttributes().contains("desktop")?1:0));
             }
             result.append("!");
             handler.getDataProxy().appendMsg(result +"");
-//            handler.getDataProxy().flushMsg();
         }
     }
 }

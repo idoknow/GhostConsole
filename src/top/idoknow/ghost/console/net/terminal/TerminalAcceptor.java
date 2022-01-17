@@ -56,15 +56,12 @@ public class TerminalAcceptor extends Thread{
 
 
     /**
-     * Send terminal list to all terminals who have attribute "listenerMaster".
+     * Send terminal list to all terminals who have attributed "listenerMaster".
      */
     public static synchronized void sendTerminalList(){
         StringBuilder result=new StringBuilder("!msts");
         synchronized (TerminalAcceptor.terminalHandlersSync){
             for(TerminalHandler handler1:TerminalAcceptor.terminalHandlers){
-//                msts.append(" "+master.socket.getInetAddress()+":"
-//                +master.socket.getPort()+"|"+TimeUtil.millsToMMDDHHmmSS(master.connTime)
-//                +"|"+(master.attributes.contains("desktop")?1:0));
                 result.append(" ")
                         .append(handler1.getSocket().getInetAddress())
                         .append(":")

@@ -7,7 +7,7 @@ import top.idoknow.ghost.console.core.ConsoleMain;
 import top.idoknow.ghost.console.subject.Subject;
 
 /**
- * This is a adapter between RFT lib and Console proj.
+ * This is an adapter between RFT lib and Console proj.
  * @author Rock Chin
  */
 public class RFTAdapter {

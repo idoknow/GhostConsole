@@ -2,7 +2,7 @@ package top.idoknow.ghost.console.subject;
 
 /**
  * Defines a subject(slave,terminal) in GhostJ system.
- * Handler of terminal or slave will includes a Subject to describes itself
+ * Handler of terminal or slave will include a Subject to describes itself
  * ,and this subject instance will be used to make log or other operations.
  * @author Rock Chin
  */

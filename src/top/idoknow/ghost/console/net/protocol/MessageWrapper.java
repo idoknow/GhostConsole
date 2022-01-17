@@ -49,12 +49,8 @@ public class MessageWrapper {
     }
 
     public synchronized void flush(){
-//        Debug.debug("Flushing messages......");
         if (dataProxy!=null) {
             dataProxy.appendMsg(buffer.toString());
-//            Debug.debug("#### pendingsize:"+dataProxy.pendingSize);
-//            dataProxy.flushMsg();
-//            Debug.debug("#### 2222222222pendingSize:"+dataProxy.pendingSize);
         }else if (subject!=null){
             LogMgr.logMessage(subject,"Wrapper","Log by wrapper with subject:\n"+buffer.toString().replaceAll("\n","\n        "));
         }

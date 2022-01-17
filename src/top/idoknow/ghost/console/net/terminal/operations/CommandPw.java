@@ -9,7 +9,7 @@ import top.idoknow.ghost.console.subject.Subject;
 
 /**
  * Receive a data to auth root account.
- * This is a expired command as new classic
+ * This is an expired command as new classic
  * protocol after refactor will use token to auth terminal.
  * This command can only auth root account.
  */

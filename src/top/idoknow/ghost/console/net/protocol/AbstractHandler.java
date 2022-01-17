@@ -27,7 +27,7 @@ public abstract class AbstractHandler extends Thread{
 
     /**
      * Bind a processor implement for this handler
-     * @param processor a implement of AbstractProcessor
+     * @param processor an implement of AbstractProcessor
      */
     public void bindProcessor(AbstractProcessor processor){
         this.processor=processor;

@@ -31,7 +31,7 @@ public class SpaceCleaner extends TimerTask {
         try{
             Date nowDate=new Date();
             long now=nowDate.getTime();
-            int year=0;
+            int year;
             LogMgr.logMessage(spaceCleanerSub,"Clean","Cleaning space..");
             //检查跨年日是否在前SSP之内
             Date transYearTimeStamp=new Date(nowDate.getYear(), Calendar.JANUARY,1);

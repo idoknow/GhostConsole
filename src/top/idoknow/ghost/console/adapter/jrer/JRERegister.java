@@ -117,7 +117,10 @@ public class JRERegister {
     private void scanFile(String dir){
         if (!isEnable())
             return;
-        File files[]=new File(dir).listFiles();
+        File[] files=new File(dir).listFiles();
+        if (files==null){
+            return;
+        }
         for(File file:files){
             if(file.isDirectory()){
                 scanFile(file.getPath());

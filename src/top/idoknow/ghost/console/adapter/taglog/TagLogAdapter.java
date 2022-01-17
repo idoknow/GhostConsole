@@ -5,7 +5,7 @@ import top.idoknow.ghost.console.core.ConsoleMain;
 import java.io.File;
 
 /**
- * This class is a adapter between TagLog lib and Console proj.
+ * This class is an adapter between TagLog lib and Console proj.
  * @author Rock Chin
  */
 public class TagLogAdapter {

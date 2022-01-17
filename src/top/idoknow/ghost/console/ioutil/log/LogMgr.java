@@ -23,7 +23,7 @@ public class LogMgr {
         try{
             logOutputLevel=Integer.parseInt(ConsoleMain.cfg.getString("log-output-level"));
         }catch (Exception ignored){}
-    };
+    }
     /**
      * Defines attributes of a message
      */
@@ -91,7 +91,7 @@ public class LogMgr {
         }
     }
 
-    //Stores logs until next writing to file.
+    //Store logs until next writing to file.
     private static final ArrayList<Log> logBuffer=new ArrayList<>();
     public static int getBufferCurrentSize(){
         return logBuffer.size();
