@@ -40,6 +40,7 @@ public class TerminalAcceptor extends Thread{
             while (true){
                 Debug.debug(terminalAcceptorSub,"Accepting...");
                 Socket terminalSocket=serverSocket.accept();
+                Debug.debug(terminalAcceptorSub,"Initializing terminal handler.");
                 TerminalHandler handler=new TerminalHandler(terminalSocket);
                 synchronized (terminalHandlersSync){
                     terminalHandlers.add(handler);

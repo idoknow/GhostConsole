@@ -147,6 +147,9 @@ public class TerminalHandler extends AbstractHandler implements IHasWrapper {
                     line.append((char)data);
                 }
                 Debug.debug(getSubject(),"Recv:"+line);
+                if (line.toString().equals("")){
+                    dispose();
+                }
                 //process
                 try {
                     this.getProcessor().run(line.toString().replaceAll(""+(char)13,""));
